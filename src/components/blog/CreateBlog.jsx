@@ -34,7 +34,7 @@ const CreateBlog = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/add-blog",
+        "https://blog-backend-u2qp.onrender.com/api/add-blog",
         formData
       );
       reset();

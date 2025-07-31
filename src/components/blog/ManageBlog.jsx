@@ -12,7 +12,7 @@ const ManageBlog = () => {
 
   const getallblogs = async () => {
     try {
-      const response = await axios.get("http://localhost:9000/api/getallblog");
+      const response = await axios.get("https://blog-backend-u2qp.onrender.com/api/getallblog");
 
       setallblogs(response.data);
     } catch (error) {
@@ -23,7 +23,7 @@ const ManageBlog = () => {
   const deletecoupon = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:9000/api/deleteblogbyid/${id}`,
+        `https://blog-backend-u2qp.onrender.com/api/deleteblogbyid/${id}`,
         
       );
 

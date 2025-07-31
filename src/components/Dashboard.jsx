@@ -28,7 +28,7 @@ const Dashboard = () => {
 
         <div className="flex max-md:hidden items-center space-x-4">
           <Link
-            to="http://localhost:5173/"
+            to="https://blog-frontend-388e.onrender.com"
             className="bg-blue-600 text-white px-4 py-2 rounded-2xl hover:bg-blue-700"
           >
             Go To Website

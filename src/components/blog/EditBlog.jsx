@@ -20,7 +20,7 @@ const EditBlog = () => {
     const fetchBlog = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:9000/api/getblogbyid/${id}`
+          `https://blog-backend-u2qp.onrender.com/api/getblogbyid/${id}`
         );
         reset(res.data);
         setImagePreview(res.data.coverImage.url);
@@ -45,7 +45,7 @@ const EditBlog = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:9000/api/editblog/${id}`,
+        `https://blog-backend-u2qp.onrender.com/api/editblog/${id}`,
         formData
       );
 
