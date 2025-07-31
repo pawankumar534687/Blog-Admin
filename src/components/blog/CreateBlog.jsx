@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import axios from "axios";
-const EditCoupon = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+import { Link } from "react-router-dom";
+const CreateBlog = () => {
+  const Navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,39 +13,33 @@ const EditCoupon = () => {
     reset,
   } = useForm();
   const [loading, setLoading] = useState(false);
+   const [preview, setPreview] = useState(null);
 
-  useEffect(() => {
-    const editcouponform = async () => {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `https://jewellery-backend-km3b.onrender.com/api/edit-coupon-form/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      reset(response.data);
-    };
-    editcouponform();
-  }, [id, reset]);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setPreview(imageURL);
+    }
+  };
 
   const onsubmit = async (data) => {
-    const token = localStorage.getItem("token");
     setLoading(true);
+
+    const formData = new FormData();
+    formData.append("coverImage", data.coverImage[0]);
+    formData.append("author", data.author);
+    formData.append("title", data.title);
+    formData.append("content", data.content);
+
     try {
-      const response = await axios.put(
-        `https://jewellery-backend-km3b.onrender.com/api/edit-coupon/${id}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await axios.post(
+        "http://localhost:9000/api/add-blog",
+        formData
       );
-      reset;
-      navigate("/manage-coupons");
-       setLoading(false);
+      reset();
+      Navigate("/manage-blog");
+      setLoading(false);
       toast.success(response.data.message);
     } catch (error) {
       toast.error(error);
@@ -57,12 +49,13 @@ const EditCoupon = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold pb-6 text-fuchsia-700 underline">
-          Edit Coupon
+      <div className="flex items-center justify-between mb-6  pb-2">
+        <h1 className="text-3xl underline font-bold text-fuchsia-700">
+          Create Coupon
         </h1>
+
         <Link
-          to="/manage-coupons"
+          to="/manage-blog"
           className="inline-flex items-center gap-2 px-4 py-2 bg-fuchsia-700 text-white rounded-xl shadow-md hover:bg-fuchsia-800 transition"
         >
           ← Back
@@ -76,33 +69,15 @@ const EditCoupon = () => {
         >
           <div>
             <label
-              htmlFor="code"
-              className="block mb-2 text-sm font-medium text-gray-700"
-            >
-              Coupon Code
-            </label>
-            <input
-              type="text"
-              id="code"
-              {...register("code", { required: true })}
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400"
-            />
-            {errors.code && (
-              <p className="text-red-500 text-sm mt-1">{errors.code.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label
               htmlFor="title"
               className="block mb-2 text-sm font-medium text-gray-700"
             >
-              Title
+              Blog Title
             </label>
             <input
               type="text"
               id="title"
-              {...register("title", { required: true })}
+              {...register("title", { required: "Title is required" })}
               className="w-full border border-gray-300 p-3 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400"
             />
             {errors.title && (
@@ -114,20 +89,40 @@ const EditCoupon = () => {
 
           <div>
             <label
-              htmlFor="discountValue"
+              htmlFor="content"
               className="block mb-2 text-sm font-medium text-gray-700"
             >
-              Discount Value
+              Blog Content
             </label>
-            <input
-              type="number"
-              id="discountValue"
-              {...register("discountValue", { required: true })}
+            <textarea
+              id="content"
+              rows={6}
+              {...register("content", { required: "Content is required" })}
               className="w-full border border-gray-300 p-3 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400"
             />
-            {errors.discountValue && (
+            {errors.content && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.discountValue.message}
+                {errors.content.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="author"
+              className="block mb-2 text-sm font-medium text-gray-700"
+            >
+              Author
+            </label>
+            <input
+              type="text"
+              id="author"
+              {...register("author", { required: "Author is required" })}
+              className="w-full border border-gray-300 p-3 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400"
+            />
+            {errors.author && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.author.message}
               </p>
             )}
           </div>
@@ -137,52 +132,46 @@ const EditCoupon = () => {
               htmlFor="minOrderAmount"
               className="block mb-2 text-sm font-medium text-gray-700"
             >
-              Min Order Amount
+              Blog Image
             </label>
             <input
-              type="number"
-              id="minOrderAmount"
-              {...register("minOrderAmount", { required: true })}
+              type="file"
+              id="coverImage"
+              {...register("coverImage", { required: "Image is required" })}
+              onChange={handleImageChange}
               className="w-full border border-gray-300 p-3 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400"
             />
-            {errors.minOrderAmount && (
+            {errors.coverImage && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.minOrderAmount.message}
+                {errors.coverImage.message}
               </p>
             )}
           </div>
+          {preview && (
+            <div style={{ marginTop: "1rem" }}>
+              <p>Preview:</p>
+              <img
+                src={preview}
+                alt="preview"
+                 style={{ width: "80px", height: "80px", borderRadius: "6px", objectFit: "cover" }}
+              />
+            </div>
+          )}
 
-          <div>
-            <label
-              htmlFor="maxOrderAmount"
-              className="block mb-2 text-sm font-medium text-gray-700"
-            >
-              Max Order Amount
-            </label>
-            <input
-              type="number"
-              id="maxOrderAmount"
-              {...register("maxOrderAmount", { required: true })}
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring focus:ring-blue-200 focus:border-blue-400"
-            />
-            {errors.maxOrderAmount && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.maxOrderAmount.message}
-              </p>
-            )}
-          </div>
           <div className="col-span-1 sm:col-span-2 lg:col-span-3 flex justify-start">
             <button
               type="submit"
-              className={`bg-fuchsia-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
+              className={`bg-fuchsia-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition ${
+                loading ? "opacity-70 cursor-not-allowed" : ""
+              }`}
             >
-             {loading ? (
+              {loading ? (
                 <>
-                  <span>Updating...</span>
+                  <span>Creating...</span>
                   <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 </>
               ) : (
-                "Update Coupon"
+                "Create Blog"
               )}
             </button>
           </div>
@@ -192,4 +181,4 @@ const EditCoupon = () => {
   );
 };
 
-export default EditCoupon;
+export default CreateBlog;

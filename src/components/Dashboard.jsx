@@ -1,29 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { IoTimerOutline } from "react-icons/io5";
-import { FaTruck } from "react-icons/fa";
-import { MdCategory } from "react-icons/md";
-import { BsSubstack } from "react-icons/bs";
-import { SiLevelsdotfyi } from "react-icons/si";
-import { GiFalloutShelter } from "react-icons/gi";
-import { CiImageOn } from "react-icons/ci";
-import { MdDiscount } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
-import { LuMessageCircleMore } from "react-icons/lu";
-import { Outlet } from "react-router-dom";
-import { RiLogoutCircleLine } from "react-icons/ri";
 
+import { MdDiscount } from "react-icons/md";
+
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "/admin";
-  };
- 
-
 
   return (
     <div className="min-h-screen   flex flex-col bg-gray-100">
@@ -39,7 +22,7 @@ const Dashboard = () => {
           </button>
 
           <h1 className="text-2xl font-bold text-gray-800">
-            Jewellery Admin Panel
+            Blog Website Admin Panel
           </h1>
         </div>
 
@@ -50,9 +33,6 @@ const Dashboard = () => {
           >
             Go To Website
           </Link>
-          <button onClick={logout} className="bg-red-500 text-white px-4 py-2 rounded-2xl hover:bg-red-600">
-            Logout
-          </button>
         </div>
       </header>
 
@@ -68,102 +48,12 @@ const Dashboard = () => {
                 <ul className="space-y-2 ">
                   <li>
                     <Link
-                      to="/"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <IoTimerOutline className="w-6 h-6" />
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/manage-orders"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <FaTruck className="w-5 h-5" />
-                      Manage Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/all-category"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <MdCategory className="w-5 h-5" />
-                      All Category
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/all-sub-category"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <BsSubstack className="w-4 h-4" />
-                      All Sub Category
-                    </Link>
-                  </li>
-                  {/* <li>
-                    <Link
-                      to="/all-level-image"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <SiLevelsdotfyi className="w-5 h-5" />
-                      All Level Images
-                    </Link>
-                  </li> */}
-                  <li>
-                    <Link
-                      to="/all-products"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <GiFalloutShelter className="w-5 h-5" />
-                      All Products
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/manage-banner"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <CiImageOn className="w-5 h-5" />
-                      Manage Banners
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/manage-coupons"
+                      to="/manage-blog"
                       className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
                       onClick={() => setSidebarOpen(false)}
                     >
                       <MdDiscount className="w-5 h-5" />
                       Manage Coupons
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/all-users"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <FaUsers className="w-5 h-5" />
-                      All Users
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/all-inquiries"
-                      className="flex items-center  p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <LuMessageCircleMore className="w-5 h-5" />
-                      All Inquiries
                     </Link>
                   </li>
                 </ul>
@@ -181,96 +71,13 @@ const Dashboard = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/"
-                  className="flex items-center p-2 rounded-2xl gap-4 hover:bg-gray-700"
-                >
-                  <IoTimerOutline className="w-6 h-6" />
-                  Dashboard
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  to="/manage-orders"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <FaTruck className="w-5 h-5" />
-                  Manage Orders
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/all-category"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <MdCategory className="w-5 h-5" />
-                  All Category
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/all-sub-category"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <BsSubstack className="w-4 h-4" />
-                  All Sub Category
-                </Link>
-              </li>
-              {/* <li>
-                <Link
-                  to="/all-level-image"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <SiLevelsdotfyi className="w-5 h-5" />
-                  All Level Images
-                </Link>
-              </li> */}
-              <li>
-                <Link
-                  to="/all-products"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <GiFalloutShelter className="w-5 h-5" />
-                  All Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/manage-banner"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <CiImageOn className="w-5 h-5" />
-                  Manage Banners
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/manage-coupons"
+                  to="/manage-blog"
                   className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
                 >
                   <MdDiscount className="w-5 h-5" />
                   Manage Coupons
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/all-users"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <FaUsers className="w-5 h-5" />
-                  All Users
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/all-inquiries"
-                  className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
-                >
-                  <LuMessageCircleMore className="w-5 h-5" />
-                  All Inquiries
-                </Link>
-              </li>
-              <button onClick={logout} className="flex cursor-pointer items-center p-2 gap-4 bg-yellow-300 text-black rounded-2xl "><RiLogoutCircleLine className="w-5 h-5" /> Lougout</button>
             </ul>
           </nav>
         </aside>
