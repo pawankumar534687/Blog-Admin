@@ -53,7 +53,7 @@ const Dashboard = () => {
                       onClick={() => setSidebarOpen(false)}
                     >
                       <MdDiscount className="w-5 h-5" />
-                      Manage Coupons
+                      Manage Blog
                     </Link>
                   </li>
                 </ul>
@@ -75,7 +75,7 @@ const Dashboard = () => {
                   className="flex items-center p-2 gap-4 rounded-2xl hover:bg-gray-700"
                 >
                   <MdDiscount className="w-5 h-5" />
-                  Manage Coupons
+                  Manage Blog
                 </Link>
               </li>
             </ul>
